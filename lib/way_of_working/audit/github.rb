@@ -3,7 +3,7 @@
 require 'way_of_working/cli'
 require 'zeitwerk'
 
-loader = Zeitwerk::Loader.for_gem_extension(WayOfWorking::Audit)
+loader = Zeitwerk::Loader.for_gem #_extension(WayOfWorking::Audit)
 loader.setup
 
 module WayOfWorking
