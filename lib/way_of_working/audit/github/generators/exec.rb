@@ -70,12 +70,12 @@ module WayOfWorking
                 when :not_applicable
                   # Do nothing
                 when :passed
-                  Rails.logger.debug { "✅ #{rule.tags.inspect} Passed #{rule.name}" }
+                  say "✅ #{rule.tags.inspect} Passed #{rule.name}"
                 when :failed
-                  Rails.logger.debug { "❌ #{rule.tags.inspect} Failed #{rule.name}: #{rule.errors.to_sentence}" }
+                  say "❌ #{rule.tags.inspect} Failed #{rule.name}: #{rule.errors.to_sentence}"
                   @audit_ok = false
                 else
-                  Rails.logger.debug { "Unknown response #{rule.status.inspect}" }
+                  abort(Rainbow("Unknown response #{rule.status.inspect}").red)
                 end
               end
             end
