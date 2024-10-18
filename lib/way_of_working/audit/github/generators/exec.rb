@@ -3,7 +3,7 @@
 require 'git'
 require 'rainbow'
 require 'thor'
-require 'way_of_working/github_audit/auditor'
+require 'way_of_working/audit/github/auditor'
 # require 'way_of_working/github_audit/rules/all'
 
 module WayOfWorking
