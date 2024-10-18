@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require 'way_of_working/cli'
+require 'way_of_working'
 require 'zeitwerk'
 
 loader = Zeitwerk::Loader.for_gem_extension(WayOfWorking::Audit)
+loader.ignore("#{__dir__}/github/plugin.rb")
 loader.setup
 
 module WayOfWorking
