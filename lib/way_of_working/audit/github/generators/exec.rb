@@ -42,7 +42,7 @@ module WayOfWorking
           end
 
           def prep_audit
-            @auditor = ::WayOfWorking::GithubAudit::Auditor.new(@github_token, @github_organisation)
+            @auditor = ::WayOfWorking::Audit::Github::Auditor.new(@github_token, @github_organisation)
 
             # Loop though all the repos
             @repositories = @auditor.repositories # .to_a[20..]
