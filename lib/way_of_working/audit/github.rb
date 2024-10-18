@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'way_of_working/cli'
-require_relative 'github/paths'
 require 'zeitwerk'
 
 loader = Zeitwerk::Loader.for_gem_extension(WayOfWorking::Audit)
