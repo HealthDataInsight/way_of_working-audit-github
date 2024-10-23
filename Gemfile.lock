@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/HealthDataInsight/way_of_working.git
-  revision: ef0f0c1b6bf90f55d000adae6d0e27cbb9359ec1
-  branch: feature/v2-wip
+  revision: 918408b6d8f117948fbd41e02dd2ee600ac95fcb
+  branch: main
   specs:
     way_of_working (2.0.0)
       activesupport
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    way_of_working-audit-github (0.1.0)
+    way_of_working-audit-github (1.0.0)
       faraday-multipart (~> 1.0)
       faraday-retry (~> 2.2)
       octokit (~> 9.1)
