@@ -10,7 +10,7 @@ module WayOfWorking
   module Audit
     module Github
       module Rules
-        # This is the base class for design system adapters
+        # This is the base class for GitHub audit rules
         class Base
           attr_accessor :errors, :name, :rulesets, :warnings
 

@@ -6,7 +6,7 @@ module WayOfWorking
   module Audit
     module Github
       module Rules
-        # This provides a WowBot bot factory
+        # This provides the GitHub audit rule factory
         module Registry
           class << self
             attr_accessor :rules
