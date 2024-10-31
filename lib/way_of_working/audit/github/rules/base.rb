@@ -28,12 +28,17 @@ module WayOfWorking
             @status ||= valid?
           end
 
-          def tags
+          def self.tags
             [:way_of_working]
+          end
+
+          def tags
+            self.class.tags
           end
 
           private
 
+          # This method returns the content of the README file
           def readme_content
             @readme_content ||=
               begin
@@ -45,6 +50,7 @@ module WayOfWorking
               end
           end
 
+          # This convenience method returns the branch rules for this repo
           def branch_rules(branch)
             @client.get("repos/#{@repo.full_name}/rules/branches/#{branch}")
           end
