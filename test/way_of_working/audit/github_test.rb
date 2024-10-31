@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'way_of_working/audit/github'
 
 module WayOfWorking
   module Audit
