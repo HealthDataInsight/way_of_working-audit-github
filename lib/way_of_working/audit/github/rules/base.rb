@@ -33,7 +33,7 @@ module WayOfWorking
           end
 
           def validate
-            say('Rule#valid? has been deprecated, use "validate"')
+            $stdout.puts 'Rule#valid? has been deprecated, use "validate"'
             valid?
           end
 
