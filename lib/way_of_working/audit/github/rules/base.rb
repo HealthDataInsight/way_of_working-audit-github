@@ -14,6 +14,14 @@ module WayOfWorking
         class Base
           attr_accessor :errors, :name, :rulesets, :warnings
 
+          class << self
+            # Stores and return the source root for this class
+            def source_root(path = nil)
+              @source_root = path if path
+              @source_root ||= nil
+            end
+          end
+
           def initialize(client, name, repo, rulesets)
             @client = client
             @name = name
@@ -47,13 +55,20 @@ module WayOfWorking
 
           private
 
+          def repo_file_contents(path)
+            response = @client.contents(@repo_name, path: path)
+            Base64.decode64(response.content).force_encoding('UTF-8')
+          rescue Octokit::NotFound
+            nil
+          end
+
           # This method returns the content of the README file
           def readme_content
             @readme_content ||=
               begin
                 response = @client.readme(@repo_name)
 
-                Base64.decode64(response.content)
+                Base64.decode64(response.content).force_encoding('UTF-8')
               rescue Octokit::NotFound
                 ''
               end
