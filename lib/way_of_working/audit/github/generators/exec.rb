@@ -55,16 +55,7 @@ module WayOfWorking
 
           def run_audit
             @audit_ok = true
-            @repositories.each do |repo|
-              if repo.archived?
-                say(Rainbow("\nSkipping archived repo: #{repo.name}").yellow)
-
-                next
-              end
-
-              say("#{repo.name} [#{repo.private? ? 'Private' : 'Public'}] #{repo.description} " \
-                  "#{repo.language} #{repo.topics.join(',')}")
-
+            unarchived_repos.each do |repo|
               @auditor.audit(repo) do |rule|
                 case rule.status
                 when :not_applicable
@@ -92,6 +83,23 @@ module WayOfWorking
           end
 
           private
+
+          def unarchived_repos(&block)
+            return to_enum(__method__) unless block_given?
+
+            @repositories.each do |repo|
+              if repo.archived?
+                say(Rainbow("\nSkipping archived repo: #{repo.name}").yellow)
+
+                next
+              end
+
+              say("#{repo.name} [#{repo.private? ? 'Private' : 'Public'}] #{repo.description} " \
+                  "#{repo.language} #{repo.topics.join(',')}")
+
+              block.call(question)
+            end
+          end
 
           # This method returns the repo names for all upstream repositories
           # hosted on GitHub, for the given organisation
