@@ -97,7 +97,7 @@ module WayOfWorking
               say("#{repo.name} [#{repo.private? ? 'Private' : 'Public'}] #{repo.description} " \
                   "#{repo.language} #{repo.topics.join(',')}")
 
-              block.call(question)
+              block.call(repo)
             end
           end
 
