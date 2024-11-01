@@ -32,6 +32,11 @@ module WayOfWorking
             end
           end
 
+          def validate
+            say('Rule#valid? has been deprecated, use "validate"')
+            valid?
+          end
+
           def self.tags
             [:way_of_working]
           end
