@@ -34,7 +34,8 @@ module WayOfWorking
 
           def status
             @status ||= begin
-              validate
+              result = validate
+              return result if result == :not_applicable
 
               @errors.empty? ? :passed : :failed
             end
