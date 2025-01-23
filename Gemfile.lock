@@ -297,7 +297,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  activesupport (~> 7.0, >= 7.0.7.1)
+  activesupport (~> 7.0, >= 7.1.5.1)
   minitest (~> 5.0)
   mocha (~> 2.0)
   ndr_dev_support (>= 7.3.1)

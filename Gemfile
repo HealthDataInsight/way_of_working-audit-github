@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in way_of_working-audit-github.gemspec
 gemspec
 
-gem 'activesupport', '~> 7.0', '>= 7.0.7.1'
+gem 'activesupport', '~> 7.0', '>= 7.1.5.1'
 gem 'minitest', '~> 5.0'
 gem 'mocha', '~> 2.0'
 gem 'ndr_dev_support', '>= 7.3.1'
