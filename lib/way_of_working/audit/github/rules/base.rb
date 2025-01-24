@@ -35,9 +35,12 @@ module WayOfWorking
           def status
             @status ||= begin
               result = validate
-              return result if result == :not_applicable
 
-              @errors.empty? ? :passed : :failed
+              if result == :not_applicable
+                result
+              else
+                @errors.empty? ? :passed : :failed
+              end
             end
           end
 
