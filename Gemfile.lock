@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    way_of_working-audit-github (1.0.0)
+    way_of_working-audit-github (1.0.1)
       faraday-multipart (~> 1.0)
       faraday-retry (~> 2.2)
       octokit (~> 9.1)

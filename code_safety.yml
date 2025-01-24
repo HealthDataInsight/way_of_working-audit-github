@@ -1,0 +1,122 @@
+---
+file safety:
+  ".alexrc":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  ".github/linters/.markdown-link-check.json":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  ".github/linters/rubocop_defaults.yml":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  ".github/workflows/inclusive-language.yml":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  ".github/workflows/main.yml":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  ".github/workflows/mega-linter.yml":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  ".gitignore":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  ".mega-linter.yml":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  ".rubocop":
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  CHANGELOG.md:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: ed3796d3dcd6d7314ee994c852e3e966df9c0d32
+  Gemfile:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  Gemfile.lock:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  LICENSE.txt:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  README.md:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  Rakefile:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  bin/console:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  bin/setup:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  lib/way_of_working/audit/github.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  lib/way_of_working/audit/github/auditor.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  lib/way_of_working/audit/github/generators/exec.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  lib/way_of_working/audit/github/plugin.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  lib/way_of_working/audit/github/rules/base.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: ed3796d3dcd6d7314ee994c852e3e966df9c0d32
+  lib/way_of_working/audit/github/rules/registry.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  lib/way_of_working/audit/github/rules/unknown.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  lib/way_of_working/audit/github/version.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: ed3796d3dcd6d7314ee994c852e3e966df9c0d32
+  test/test_helper.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  test/way_of_working/audit/github/rule_test.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  test/way_of_working/audit/github/zeitwerk_loader_test.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
+  test/way_of_working/audit/github_test.rb:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 84e86c45c31ac0e37a13cf39d2bbbff01391f39d
+  way_of_working-audit-github.gemspec:
+    comments:
+    reviewed_by: shilpigoeldev
+    safe_revision: 4f2b65e6f3eda6c9213348886916aa391cd2e295
