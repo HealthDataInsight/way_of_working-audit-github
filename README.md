@@ -27,7 +27,12 @@ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
 
 ## Usage
 
-To run the GitHub audit in your project, run:
+Define the following environment variables:
+
+- `GITHUB_ORGANISATION`: the name of your organisation being scanned (as used in the GitHub URL)
+- `GITHUB_TOKEN`: a PAT token with sufficient permission to access repositories and their configuration.
+
+Then to run the GitHub audit for your project, use:
 
 ```bash
 way_of_working exec audit_github
