@@ -1,8 +1,13 @@
 # WayOfWorking::Audit::Github
 
-TODO: Delete this and the text below, and describe your gem
+<!-- Way of Working: Main Badge Holder Start -->
+![Way of Working Badge](https://img.shields.io/badge/Way_of_Working-v2.0.1-%238169e3?labelColor=black)
+<!-- Way of Working: Additional Badge Holder Start -->
+<!-- Way of Working: Badge Holder End -->
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/way_of_working-audit-github`. To experiment with that code, run `bin/console` for an interactive prompt.
+A [Way of Working](https://github.com/HealthDataInsight/way_of_working) plugin that provides a registry and auditing tool for GitHub repositories. Rules can check for both missing/incorrect files and mis-configuration of the repository itself. Many existing plugins have defined their own rules to check that they have been adopted properly.
+
+Work is ongoing on a plugin for CIS GitHub Benchmark compliance testing.
 
 ## Installation
 
@@ -22,7 +27,16 @@ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
 
 ## Usage
 
-TODO: Write usage instructions here
+Define the following environment variables:
+
+- `GITHUB_ORGANISATION`: the name of your organisation being scanned (as used in the GitHub URL)
+- `GITHUB_TOKEN`: a PAT token with sufficient permission to access repositories and their configuration.
+
+Then to run the GitHub audit for your project, use:
+
+```bash
+way_of_working exec audit_github
+```
 
 ## Development
 
@@ -32,7 +46,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/HealthDataInsight/way_of_working-audit-github. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/HealthDataInsight/way_of_working-audit-github/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at <https://github.com/HealthDataInsight/way_of_working-audit-github>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/HealthDataInsight/way_of_working-audit-github/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 

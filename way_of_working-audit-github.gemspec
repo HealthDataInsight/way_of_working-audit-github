@@ -8,12 +8,12 @@ Gem::Specification.new do |spec|
   spec.authors = ['Tim Gentry']
   spec.email = ['52189+timgentry@users.noreply.github.com']
 
-  spec.summary = 'TODO: Way of Working plugin for audit using github'
+  spec.summary = 'Way of Working plugin for GitHub auditing'
   spec.homepage = 'https://github.com/HealthDataInsight/way_of_working-audit-github'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.1.0'
 
-  spec.metadata['allowed_push_host'] = "TODO: Set to your gem server 'https://example.com'"
+  spec.metadata['allowed_push_host'] = 'https://rubygems.org'
   spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.metadata['homepage_uri'] = spec.homepage
@@ -35,6 +35,9 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
+  spec.add_dependency 'faraday-multipart', '~> 1.0'
+  spec.add_dependency 'faraday-retry', '~> 2.2'
+  spec.add_dependency 'octokit', '~> 9.1'
   spec.add_dependency 'way_of_working', '~> 2.0'
   spec.add_dependency 'zeitwerk', '~> 2.6.18'
 
