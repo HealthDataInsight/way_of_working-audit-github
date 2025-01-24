@@ -5,24 +5,24 @@
 <!-- Way of Working: Additional Badge Holder Start -->
 <!-- Way of Working: Badge Holder End -->
 
+[![Gem Version](https://badge.fury.io/rb/way_of_working-audit-github.svg)](https://badge.fury.io/rb/way_of_working-audit-github)
+
 A [Way of Working](https://github.com/HealthDataInsight/way_of_working) plugin that provides a registry and auditing tool for GitHub repositories. Rules can check for both missing/incorrect files and mis-configuration of the repository itself. Many existing plugins have defined their own rules to check that they have been adopted properly.
 
 Work is ongoing on a plugin for CIS GitHub Benchmark compliance testing.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle add way_of_working-audit-github
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install way_of_working-audit-github
 ```
 
 ## Usage
