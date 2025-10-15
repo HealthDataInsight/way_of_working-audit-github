@@ -14,6 +14,9 @@ module WayOfWorking
         class Exec < Thor::Group
           # argument :all_repos, type: :string, required: false, desc: 'Optional repo to test'
 
+          class_option :all_repos, type: :boolean, default: false,
+                                        desc: 'Audit all repositories in the organisation (not just this repo)'
+
           desc 'This runs the github audit on this project'
 
           def check_for_github_token_environment_variables
@@ -45,9 +48,11 @@ module WayOfWorking
             @auditor = ::WayOfWorking::Audit::Github::Auditor.new(@github_token, @github_organisation)
 
             # Loop though all the repos
-            @repositories = @auditor.repositories # .to_a[20..]
-            @repositories = @repositories.select do |repo|
-              github_organisation_remotes.include?(repo.name)
+            @repositories = @auditor.repositories
+            unless options[:all_repos]
+              @repositories = @repositories.select do |repo|
+                github_organisation_remotes.include?(repo.name)
+              end
             end
           rescue Octokit::Unauthorized
             abort(Rainbow("\nGITHUB_TOKEN has expired or does not have sufficient permission").red)

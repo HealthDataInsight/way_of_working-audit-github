@@ -38,6 +38,12 @@ Then to run the GitHub audit for your project, use:
 way_of_working exec audit_github
 ```
 
+By default, the audit runs only against repositories that are configured as git remotes in your current project. To audit all repositories in your organisation, use the `--all-repos` flag:
+
+```bash
+way_of_working exec audit_github --all-repos
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
