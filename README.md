@@ -44,6 +44,16 @@ By default, the audit runs only against repositories that are configured as git 
 way_of_working exec audit_github --all-repos
 ```
 
+You can filter repositories by topic using the `--topic` flag. This accepts a single topic and will only audit repositories that have that topic:
+
+```bash
+# Audit all repos with the 'way-of-working' topic
+way_of_working exec audit_github --all-repos --topic way-of-working
+
+# Audit all repos with the 'indoor-mapping' topic
+way_of_working exec audit_github --all-repos --topic indoor-mapping
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

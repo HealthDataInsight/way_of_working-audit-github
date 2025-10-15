@@ -17,6 +17,9 @@ module WayOfWorking
           class_option :all_repos, type: :boolean, default: false,
                                    desc: 'Audit all repositories in the organisation (not just this repo)'
 
+          class_option :topic, type: :string, default: nil,
+                               desc: 'Filter repositories by topic (e.g., way-of-working)'
+
           desc 'This runs the github audit on this project'
 
           def check_for_github_token_environment_variables
@@ -52,6 +55,13 @@ module WayOfWorking
             unless options[:all_repos]
               @repositories = @repositories.select do |repo|
                 github_organisation_remotes.include?(repo.name)
+              end
+            end
+
+            # Filter by topic if specified
+            if options[:topic]
+              @repositories = @repositories.select do |repo|
+                repo.topics.include?(options[:topic])
               end
             end
           rescue Octokit::Unauthorized
