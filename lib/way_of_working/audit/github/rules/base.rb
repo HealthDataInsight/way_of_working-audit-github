@@ -45,7 +45,7 @@ module WayOfWorking
           end
 
           def validate
-            $stdout.puts 'Rule#valid? has been deprecated, use "validate" in ' + self.class.name
+            $stdout.puts "Rule#valid? has been deprecated, use \"validate\" in #{self.class.name}"
             valid?
           end
 
