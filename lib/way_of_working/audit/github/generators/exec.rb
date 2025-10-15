@@ -40,7 +40,7 @@ module WayOfWorking
           def check_github_organisation_remotes
             abort(Rainbow("\nGitHub is not an upstream repository.").red) if github_organisation_remotes.empty?
 
-            # say(Rainbow("Limiting audit to #{path}\n").yellow) if path
+            # say("Limiting audit to #{path}\n", :yellow) if path
             say "\nRunning..."
           end
 
@@ -66,9 +66,9 @@ module WayOfWorking
                 when :not_applicable
                   # Do nothing
                 when :passed
-                  say "✅ #{rule.tags.inspect} Passed #{rule.name}"
+                  say "  ✅ #{rule.tags.inspect} Passed #{rule.name}"
                 when :failed
-                  say "❌ #{rule.tags.inspect} Failed #{rule.name}: #{rule.errors.to_sentence}"
+                  say "  ❌ #{rule.tags.inspect} Failed #{rule.name}: #{rule.errors.to_sentence}"
                   @audit_ok = false
                 else
                   abort(Rainbow("Unknown response #{rule.status.inspect}").red)
@@ -78,10 +78,10 @@ module WayOfWorking
           end
 
           def run_last
-            say(Rainbow("\nTotal time taken: #{(Time.now - @start_time).to_i} seconds").yellow)
+            say("\nTotal time taken: #{(Time.now - @start_time).to_i} seconds", :yellow)
 
             if @audit_ok
-              say(Rainbow("\nGitHub audit succeeded!").green)
+              say("\nGitHub audit succeeded!", :green)
             else
               abort(Rainbow("\nGitHub audit failed!").red)
             end
@@ -95,8 +95,10 @@ module WayOfWorking
             @repositories.each do |repo|
               next if repo.archived?
 
-              say("#{repo.name} [#{repo.private? ? 'Private' : 'Public'}] #{repo.description} " \
-                  "#{repo.language} #{repo.topics.join(',')}")
+              say
+              say("#{repo.name} #{repo.private? ? '🔒' : ''}", :bold)
+              say("#{repo.description} [#{repo.language}]")
+              say(repo.topics.join(' '), :cyan) unless repo.topics.empty?
 
               block.call(repo)
             end
