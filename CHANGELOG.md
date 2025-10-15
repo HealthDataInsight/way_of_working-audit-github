@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `--all-repos` option to audit all repositories in the organisation (not just the current repo)
 - `--topic` option to filter repositories by GitHub topics (e.g., way-of-working)
+- `--fix` option to automatically fix issues where possible (passed to individual rules)
 
 ## [1.0.1] - 2025-01-24
 

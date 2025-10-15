@@ -20,6 +20,9 @@ module WayOfWorking
           class_option :topic, type: :string, default: nil,
                                desc: 'Filter repositories by topic (e.g., way-of-working)'
 
+          class_option :fix, type: :boolean, default: false,
+                             desc: 'Attempt to automatically fix issues where possible'
+
           desc 'This runs the github audit on this project'
 
           def check_for_github_token_environment_variables
@@ -48,7 +51,7 @@ module WayOfWorking
           end
 
           def prep_audit
-            @auditor = ::WayOfWorking::Audit::Github::Auditor.new(@github_token, @github_organisation)
+            @auditor = ::WayOfWorking::Audit::Github::Auditor.new(@github_token, @github_organisation, options[:fix])
 
             # Loop though all the repos
             @repositories = @auditor.repositories

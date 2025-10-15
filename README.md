@@ -54,6 +54,18 @@ way_of_working exec audit_github --all-repos --topic way-of-working
 way_of_working exec audit_github --all-repos --topic indoor-mapping
 ```
 
+To automatically fix issues where possible, use the `--fix` flag:
+
+```bash
+# Audit and fix issues in the current project
+way_of_working exec audit_github --fix
+
+# Audit and fix issues in all repos with a specific topic
+way_of_working exec audit_github --all-repos --topic way-of-working --fix
+```
+
+Note: The `--fix` flag is passed to individual rules, which may implement automatic fixes for their specific checks. Not all rules support automatic fixing.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
