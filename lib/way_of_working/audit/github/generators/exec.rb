@@ -15,7 +15,7 @@ module WayOfWorking
           # argument :all_repos, type: :string, required: false, desc: 'Optional repo to test'
 
           class_option :all_repos, type: :boolean, default: false,
-                                        desc: 'Audit all repositories in the organisation (not just this repo)'
+                                   desc: 'Audit all repositories in the organisation (not just this repo)'
 
           desc 'This runs the github audit on this project'
 
@@ -93,11 +93,7 @@ module WayOfWorking
             return to_enum(__method__) unless block_given?
 
             @repositories.each do |repo|
-              if repo.archived?
-                say(Rainbow("\nSkipping archived repo: #{repo.name}").yellow)
-
-                next
-              end
+              next if repo.archived?
 
               say("#{repo.name} [#{repo.private? ? 'Private' : 'Public'}] #{repo.description} " \
                   "#{repo.language} #{repo.topics.join(',')}")
