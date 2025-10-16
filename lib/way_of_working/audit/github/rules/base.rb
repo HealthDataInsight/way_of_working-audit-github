@@ -13,6 +13,7 @@ module WayOfWorking
         # This is the base class for GitHub audit rules
         class Base
           attr_accessor :errors, :name, :rulesets, :warnings
+          attr_reader :fix
 
           class << self
             # Stores and return the source root for this class
@@ -22,12 +23,13 @@ module WayOfWorking
             end
           end
 
-          def initialize(client, name, repo, rulesets)
+          def initialize(client, name, repo, rulesets, fix = false)
             @client = client
             @name = name
             @repo = repo
             @repo_name = repo.full_name
             @rulesets = rulesets
+            @fix = fix
             @errors = []
             @warnings = []
           end
@@ -45,7 +47,7 @@ module WayOfWorking
           end
 
           def validate
-            $stdout.puts 'Rule#valid? has been deprecated, use "validate"'
+            $stdout.puts "Rule#valid? has been deprecated, use \"validate\" in #{self.class.name}"
             valid?
           end
 

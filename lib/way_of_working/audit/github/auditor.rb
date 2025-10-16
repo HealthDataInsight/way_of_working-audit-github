@@ -6,9 +6,10 @@ module WayOfWorking
     module Github
       # This auditor runs all the rules against any given GitHub repository
       class Auditor
-        def initialize(access_token, organisation_name)
+        def initialize(access_token, organisation_name, fix = false)
           @access_token = access_token
           @organisation_name = organisation_name
+          @fix = fix
         end
 
         def audit(repository)
@@ -18,7 +19,7 @@ module WayOfWorking
           end
 
           Array(Rules::Registry.rules).each do |rule_name, klass|
-            rule = klass.new(client, rule_name, repository, rulesets)
+            rule = klass.new(client, rule_name, repository, rulesets, @fix)
 
             yield rule
           end

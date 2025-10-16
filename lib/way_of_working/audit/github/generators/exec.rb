@@ -14,6 +14,15 @@ module WayOfWorking
         class Exec < Thor::Group
           # argument :all_repos, type: :string, required: false, desc: 'Optional repo to test'
 
+          class_option :all_repos, type: :boolean, default: false,
+                                   desc: 'Audit all repositories in the organisation (not just this repo)'
+
+          class_option :topic, type: :string, default: nil,
+                               desc: 'Filter repositories by topic (e.g., way-of-working)'
+
+          class_option :fix, type: :boolean, default: false,
+                             desc: 'Attempt to automatically fix issues where possible'
+
           desc 'This runs the github audit on this project'
 
           def check_for_github_token_environment_variables
@@ -37,17 +46,26 @@ module WayOfWorking
           def check_github_organisation_remotes
             abort(Rainbow("\nGitHub is not an upstream repository.").red) if github_organisation_remotes.empty?
 
-            # say(Rainbow("Limiting audit to #{path}\n").yellow) if path
+            # say("Limiting audit to #{path}\n", :yellow) if path
             say "\nRunning..."
           end
 
           def prep_audit
-            @auditor = ::WayOfWorking::Audit::Github::Auditor.new(@github_token, @github_organisation)
+            @auditor = ::WayOfWorking::Audit::Github::Auditor.new(@github_token, @github_organisation, options[:fix])
 
             # Loop though all the repos
-            @repositories = @auditor.repositories # .to_a[20..]
-            @repositories = @repositories.select do |repo|
-              github_organisation_remotes.include?(repo.name)
+            @repositories = @auditor.repositories
+            unless options[:all_repos]
+              @repositories = @repositories.select do |repo|
+                github_organisation_remotes.include?(repo.name)
+              end
+            end
+
+            # Filter by topic if specified
+            if options[:topic]
+              @repositories = @repositories.select do |repo|
+                repo.topics.include?(options[:topic])
+              end
             end
           rescue Octokit::Unauthorized
             abort(Rainbow("\nGITHUB_TOKEN has expired or does not have sufficient permission").red)
@@ -61,9 +79,9 @@ module WayOfWorking
                 when :not_applicable
                   # Do nothing
                 when :passed
-                  say "✅ #{rule.tags.inspect} Passed #{rule.name}"
+                  say "  ✅ #{rule.tags.inspect} Passed #{rule.name}"
                 when :failed
-                  say "❌ #{rule.tags.inspect} Failed #{rule.name}: #{rule.errors.to_sentence}"
+                  say "  ❌ #{rule.tags.inspect} Failed #{rule.name}: #{rule.errors.to_sentence}"
                   @audit_ok = false
                 else
                   abort(Rainbow("Unknown response #{rule.status.inspect}").red)
@@ -73,10 +91,10 @@ module WayOfWorking
           end
 
           def run_last
-            say(Rainbow("\nTotal time taken: #{(Time.now - @start_time).to_i} seconds").yellow)
+            say("\nTotal time taken: #{(Time.now - @start_time).to_i} seconds", :yellow)
 
             if @audit_ok
-              say(Rainbow("\nGitHub audit succeeded!").green)
+              say("\nGitHub audit succeeded!", :green)
             else
               abort(Rainbow("\nGitHub audit failed!").red)
             end
@@ -88,14 +106,12 @@ module WayOfWorking
             return to_enum(__method__) unless block_given?
 
             @repositories.each do |repo|
-              if repo.archived?
-                say(Rainbow("\nSkipping archived repo: #{repo.name}").yellow)
+              next if repo.archived?
 
-                next
-              end
-
-              say("#{repo.name} [#{repo.private? ? 'Private' : 'Public'}] #{repo.description} " \
-                  "#{repo.language} #{repo.topics.join(',')}")
+              say
+              say("#{repo.name} #{repo.private? ? '🔒' : ''}", :bold)
+              say("#{repo.description} [#{repo.language}]")
+              say(repo.topics.join(' '), :cyan) unless repo.topics.empty?
 
               block.call(repo)
             end

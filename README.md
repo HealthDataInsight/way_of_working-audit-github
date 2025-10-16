@@ -38,6 +38,34 @@ Then to run the GitHub audit for your project, use:
 way_of_working exec audit_github
 ```
 
+By default, the audit runs only against repositories that are configured as git remotes in your current project. To audit all repositories in your organisation, use the `--all-repos` flag:
+
+```bash
+way_of_working exec audit_github --all-repos
+```
+
+You can filter repositories by topic using the `--topic` flag. This accepts a single topic and will only audit repositories that have that topic:
+
+```bash
+# Audit all repos with the 'way-of-working' topic
+way_of_working exec audit_github --all-repos --topic way-of-working
+
+# Audit all repos with the 'indoor-mapping' topic
+way_of_working exec audit_github --all-repos --topic indoor-mapping
+```
+
+To automatically fix issues where possible, use the `--fix` flag:
+
+```bash
+# Audit and fix issues in the current project
+way_of_working exec audit_github --fix
+
+# Audit and fix issues in all repos with a specific topic
+way_of_working exec audit_github --all-repos --topic way-of-working --fix
+```
+
+Note: The `--fix` flag is passed to individual rules, which may implement automatic fixes for their specific checks. Not all rules support automatic fixing.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
