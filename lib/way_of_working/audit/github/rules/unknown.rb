@@ -8,7 +8,7 @@ module WayOfWorking
       module Rules
         # This is a stub handler for rules that aren't in the registry.
         class Unknown < Base
-          def initialize(client, repo_name)
+          def initialize(client, name, repo, rulesets, fix = false)
             super
             raise 'Error: Unknown client'
           end
