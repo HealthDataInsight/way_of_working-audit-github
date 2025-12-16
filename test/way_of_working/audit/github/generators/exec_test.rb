@@ -151,9 +151,9 @@ module WayOfWorking
 
           test 'prep_audit filters repositories to only public when public is true' do
             # Mock the auditor
-            mock_repo1 = stub(name: 'public_repo', archived?: false, public?: true)
-            mock_repo2 = stub(name: 'private_repo', archived?: false, public?: false)
-            mock_repo3 = stub(name: 'another_public_repo', archived?: false, public?: true)
+            mock_repo1 = stub(name: 'public_repo', archived?: false, private?: false)
+            mock_repo2 = stub(name: 'private_repo', archived?: false, private?: true)
+            mock_repo3 = stub(name: 'another_public_repo', archived?: false, private?: false)
             mock_auditor = mock
             mock_auditor.stubs(:repositories).returns([mock_repo1, mock_repo2, mock_repo3])
 
@@ -174,10 +174,10 @@ module WayOfWorking
 
           test 'prep_audit combines topic and public filters when both are specified' do
             # Mock the auditor
-            mock_repo1 = stub(name: 'public_with_topic', archived?: false, public?: true, topics: ['way-of-working'])
-            mock_repo2 = stub(name: 'private_with_topic', archived?: false, public?: false, topics: ['way-of-working'])
-            mock_repo3 = stub(name: 'public_without_topic', archived?: false, public?: true, topics: ['other'])
-            mock_repo4 = stub(name: 'private_without_topic', archived?: false, public?: false, topics: ['other'])
+            mock_repo1 = stub(name: 'public_with_topic', archived?: false, private?: false, topics: ['way-of-working'])
+            mock_repo2 = stub(name: 'private_with_topic', archived?: false, private?: true, topics: ['way-of-working'])
+            mock_repo3 = stub(name: 'public_without_topic', archived?: false, private?: false, topics: ['other'])
+            mock_repo4 = stub(name: 'private_without_topic', archived?: false, private?: true, topics: ['other'])
             mock_auditor = mock
             mock_auditor.stubs(:repositories).returns([mock_repo1, mock_repo2, mock_repo3, mock_repo4])
 

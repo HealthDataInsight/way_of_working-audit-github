@@ -72,7 +72,7 @@ module WayOfWorking
             end
 
             # Filter by visibility if specified
-            @repositories = @repositories.select(&:public?) if options[:public]
+            @repositories = @repositories.reject(&:private?) if options[:public]
           rescue Octokit::Unauthorized
             abort(Rainbow("\nGITHUB_TOKEN has expired or does not have sufficient permission").red)
           end
