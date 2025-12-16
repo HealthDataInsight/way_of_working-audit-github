@@ -29,10 +29,10 @@ module WayOfWorking
             ENV.delete('GITHUB_ORGANISATION')
           end
 
-          test 'generator has all_repos option' do
-            assert generator_class.class_options.key?(:all_repos)
-            assert_equal :boolean, generator_class.class_options[:all_repos].type
-            assert_equal false, generator_class.class_options[:all_repos].default
+          test 'generator has all option' do
+            assert generator_class.class_options.key?(:all)
+            assert_equal :boolean, generator_class.class_options[:all].type
+            assert_equal false, generator_class.class_options[:all].default
           end
 
           test 'generator has topic option' do
@@ -83,7 +83,7 @@ module WayOfWorking
             generator.prep_audit
           end
 
-          test 'prep_audit filters repositories when all_repos is false' do
+          test 'prep_audit filters repositories when all is false' do
             # Mock the auditor
             mock_repo1 = stub(name: 'test_repo', archived?: false)
             mock_repo2 = stub(name: 'other_repo', archived?: false)
@@ -92,7 +92,7 @@ module WayOfWorking
 
             Auditor.stubs(:new).returns(mock_auditor)
 
-            # Run generator with all_repos=false (default)
+            # Run generator with all=false (default)
             generator = generator_class.new([], {}, {})
             generator.instance_variable_set(:@github_token, 'test_token')
             generator.instance_variable_set(:@github_organisation, 'test_org')
@@ -106,7 +106,7 @@ module WayOfWorking
             assert_equal 'test_repo', repositories.first.name
           end
 
-          test 'prep_audit does not filter repositories when all_repos is true' do
+          test 'prep_audit does not filter repositories when all is true' do
             # Mock the auditor
             mock_repo1 = stub(name: 'test_repo', archived?: false)
             mock_repo2 = stub(name: 'other_repo', archived?: false)
@@ -115,8 +115,8 @@ module WayOfWorking
 
             Auditor.stubs(:new).returns(mock_auditor)
 
-            # Run generator with all_repos=true
-            generator = generator_class.new([], { all_repos: true }, {})
+            # Run generator with all=true
+            generator = generator_class.new([], { all: true }, {})
             generator.instance_variable_set(:@github_token, 'test_token')
             generator.instance_variable_set(:@github_organisation, 'test_org')
             generator.prep_audit
@@ -137,7 +137,7 @@ module WayOfWorking
             Auditor.stubs(:new).returns(mock_auditor)
 
             # Run generator with topic filter
-            generator = generator_class.new([], { all_repos: true, topic: 'way-of-working' }, {})
+            generator = generator_class.new([], { all: true, topic: 'way-of-working' }, {})
             generator.instance_variable_set(:@github_token, 'test_token')
             generator.instance_variable_set(:@github_organisation, 'test_org')
             generator.prep_audit
@@ -160,7 +160,7 @@ module WayOfWorking
             Auditor.stubs(:new).returns(mock_auditor)
 
             # Run generator with public filter
-            generator = generator_class.new([], { all_repos: true, public: true }, {})
+            generator = generator_class.new([], { all: true, public: true }, {})
             generator.instance_variable_set(:@github_token, 'test_token')
             generator.instance_variable_set(:@github_organisation, 'test_org')
             generator.prep_audit
@@ -184,7 +184,7 @@ module WayOfWorking
             Auditor.stubs(:new).returns(mock_auditor)
 
             # Run generator with both topic and public filters
-            generator = generator_class.new([], { all_repos: true, topic: 'way-of-working', public: true }, {})
+            generator = generator_class.new([], { all: true, topic: 'way-of-working', public: true }, {})
             generator.instance_variable_set(:@github_token, 'test_token')
             generator.instance_variable_set(:@github_organisation, 'test_org')
             generator.prep_audit

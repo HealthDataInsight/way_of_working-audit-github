@@ -12,10 +12,8 @@ module WayOfWorking
       module Generators
         # This generator runs the github audit
         class Exec < Thor::Group
-          # argument :all_repos, type: :string, required: false, desc: 'Optional repo to test'
-
-          class_option :all_repos, type: :boolean, default: false,
-                                   desc: 'Audit all repositories in the organisation (not just this repo)'
+          class_option :all, type: :boolean, default: false,
+                               desc: 'Audit all repositories in the organisation (not just this repo)'
 
           class_option :fix, type: :boolean, default: false,
                              desc: 'Attempt to automatically fix issues where possible'
@@ -58,7 +56,7 @@ module WayOfWorking
 
             # Loop though all the repos
             @repositories = @auditor.repositories
-            unless options[:all_repos]
+            unless options[:all]
               @repositories = @repositories.select do |repo|
                 github_organisation_remotes.include?(repo.name)
               end
