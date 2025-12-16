@@ -205,6 +205,30 @@ module WayOfWorking
             assert_equal 'structured_store', repositories.first.name
           end
 
+          test 'filter_all_if_specified does not filter when name is specified without all' do
+            # Mock the auditor
+            mock_repo1 = stub(name: 'structured_store', archived?: false)
+            mock_repo2 = stub(name: 'other_repo', archived?: false)
+            mock_repo3 = stub(name: 'test_repo', archived?: false)
+            mock_auditor = mock
+            mock_auditor.stubs(:repositories).returns([mock_repo1, mock_repo2, mock_repo3])
+
+            Auditor.stubs(:new).returns(mock_auditor)
+
+            # Run generator with name filter only (no --all flag)
+            generator = generator_class.new([], { name: ['structured_store'] }, {})
+            generator.instance_variable_set(:@github_token, 'test_token')
+            generator.instance_variable_set(:@github_organisation, 'test_org')
+            # Stub the github_organisation_remotes method
+            generator.stubs(:github_organisation_remotes).returns(['test_repo'])
+            generator.prep_audit
+            generator.filter_all_if_specified
+
+            repositories = generator.instance_variable_get(:@repositories)
+            # Should include all repos because --name implies --all
+            assert_equal 3, repositories.length
+          end
+
           test 'filter_by_name_array_if_specified filters repositories by multiple names when multiple names are specified' do
             # Mock the auditor
             mock_repo1 = stub(name: 'structured_store', archived?: false)

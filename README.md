@@ -54,14 +54,14 @@ way_of_working exec audit_github --all --topic way-of-working
 way_of_working exec audit_github --all --topic indoor-mapping
 ```
 
-You can filter repositories by name using the `--name` flag. This accepts one or more repository names:
+You can filter repositories by name using the `--name` flag. This accepts one or more repository names and automatically audits all repositories in the organisation (you don't need to specify `--all`):
 
 ```bash
 # Audit a single repository by name
-way_of_working exec audit_github --all --name structured_store
+way_of_working exec audit_github --name structured_store
 
 # Audit multiple repositories by name
-way_of_working exec audit_github --all --name structured_store other_repo
+way_of_working exec audit_github --name structured_store other_repo
 ```
 
 You can filter to only public repositories using the `--public` flag:

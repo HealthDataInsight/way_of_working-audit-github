@@ -64,7 +64,7 @@ module WayOfWorking
           end
 
           def filter_all_if_specified
-            return if options[:all]
+            return if options[:all] || options[:name]
 
             @repositories = @repositories.select do |repo|
               github_organisation_remotes.include?(repo.name)
