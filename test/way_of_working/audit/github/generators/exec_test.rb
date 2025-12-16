@@ -41,6 +41,12 @@ module WayOfWorking
             assert_nil generator_class.class_options[:topic].default
           end
 
+          test 'generator has public option' do
+            assert generator_class.class_options.key?(:public)
+            assert_equal :boolean, generator_class.class_options[:public].type
+            assert_equal false, generator_class.class_options[:public].default
+          end
+
           test 'generator has fix option' do
             assert generator_class.class_options.key?(:fix)
             assert_equal :boolean, generator_class.class_options[:fix].type
@@ -141,6 +147,52 @@ module WayOfWorking
             assert_equal 2, repositories.length
             assert_includes repositories.map(&:name), 'test_repo'
             assert_includes repositories.map(&:name), 'third_repo'
+          end
+
+          test 'prep_audit filters repositories to only public when public is true' do
+            # Mock the auditor
+            mock_repo1 = stub(name: 'public_repo', archived?: false, public?: true)
+            mock_repo2 = stub(name: 'private_repo', archived?: false, public?: false)
+            mock_repo3 = stub(name: 'another_public_repo', archived?: false, public?: true)
+            mock_auditor = mock
+            mock_auditor.stubs(:repositories).returns([mock_repo1, mock_repo2, mock_repo3])
+
+            Auditor.stubs(:new).returns(mock_auditor)
+
+            # Run generator with public filter
+            generator = generator_class.new([], { all_repos: true, public: true }, {})
+            generator.instance_variable_set(:@github_token, 'test_token')
+            generator.instance_variable_set(:@github_organisation, 'test_org')
+            generator.prep_audit
+
+            repositories = generator.instance_variable_get(:@repositories)
+            # Should only include public repos
+            assert_equal 2, repositories.length
+            assert_includes repositories.map(&:name), 'public_repo'
+            assert_includes repositories.map(&:name), 'another_public_repo'
+          end
+
+          test 'prep_audit combines topic and public filters when both are specified' do
+            # Mock the auditor
+            mock_repo1 = stub(name: 'public_with_topic', archived?: false, public?: true, topics: ['way-of-working'])
+            mock_repo2 = stub(name: 'private_with_topic', archived?: false, public?: false, topics: ['way-of-working'])
+            mock_repo3 = stub(name: 'public_without_topic', archived?: false, public?: true, topics: ['other'])
+            mock_repo4 = stub(name: 'private_without_topic', archived?: false, public?: false, topics: ['other'])
+            mock_auditor = mock
+            mock_auditor.stubs(:repositories).returns([mock_repo1, mock_repo2, mock_repo3, mock_repo4])
+
+            Auditor.stubs(:new).returns(mock_auditor)
+
+            # Run generator with both topic and public filters
+            generator = generator_class.new([], { all_repos: true, topic: 'way-of-working', public: true }, {})
+            generator.instance_variable_set(:@github_token, 'test_token')
+            generator.instance_variable_set(:@github_organisation, 'test_org')
+            generator.prep_audit
+
+            repositories = generator.instance_variable_get(:@repositories)
+            # Should only include public repos with 'way-of-working' topic
+            assert_equal 1, repositories.length
+            assert_equal 'public_with_topic', repositories.first.name
           end
         end
       end

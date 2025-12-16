@@ -17,11 +17,14 @@ module WayOfWorking
           class_option :all_repos, type: :boolean, default: false,
                                    desc: 'Audit all repositories in the organisation (not just this repo)'
 
-          class_option :topic, type: :string, default: nil,
-                               desc: 'Filter repositories by topic (e.g., way-of-working)'
-
           class_option :fix, type: :boolean, default: false,
                              desc: 'Attempt to automatically fix issues where possible'
+
+          class_option :public, type: :boolean, default: false,
+                                desc: 'Filter to only public repositories'
+
+          class_option :topic, type: :string, default: nil,
+                               desc: 'Filter repositories by topic (e.g., way-of-working)'
 
           desc 'This runs the github audit on this project'
 
@@ -67,6 +70,9 @@ module WayOfWorking
                 repo.topics.include?(options[:topic])
               end
             end
+
+            # Filter by visibility if specified
+            @repositories = @repositories.select(&:public?) if options[:public]
           rescue Octokit::Unauthorized
             abort(Rainbow("\nGITHUB_TOKEN has expired or does not have sufficient permission").red)
           end
