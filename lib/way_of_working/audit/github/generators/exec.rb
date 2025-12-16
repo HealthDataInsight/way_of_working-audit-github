@@ -13,10 +13,13 @@ module WayOfWorking
         # This generator runs the github audit
         class Exec < Thor::Group
           class_option :all, type: :boolean, default: false,
-                               desc: 'Audit all repositories in the organisation (not just this repo)'
+                             desc: 'Audit all repositories in the organisation (not just this repo)'
 
           class_option :fix, type: :boolean, default: false,
                              desc: 'Attempt to automatically fix issues where possible'
+
+          class_option :name, type: :array, default: nil,
+                              desc: 'Filter repositories by name (e.g., structured_store)'
 
           class_option :public, type: :boolean, default: false,
                                 desc: 'Filter to only public repositories'
@@ -56,23 +59,38 @@ module WayOfWorking
 
             # Loop though all the repos
             @repositories = @auditor.repositories
-            unless options[:all]
-              @repositories = @repositories.select do |repo|
-                github_organisation_remotes.include?(repo.name)
-              end
-            end
-
-            # Filter by topic if specified
-            if options[:topic]
-              @repositories = @repositories.select do |repo|
-                repo.topics.include?(options[:topic])
-              end
-            end
-
-            # Filter by visibility if specified
-            @repositories = @repositories.reject(&:private?) if options[:public]
           rescue Octokit::Unauthorized
             abort(Rainbow("\nGITHUB_TOKEN has expired or does not have sufficient permission").red)
+          end
+
+          def filter_all_if_specified
+            return if options[:all]
+
+            @repositories = @repositories.select do |repo|
+              github_organisation_remotes.include?(repo.name)
+            end
+          end
+
+          def filter_by_name_array_if_specified
+            return unless options[:name]
+
+            @repositories = @repositories.select do |repo|
+              options[:name].include?(repo.name)
+            end
+          end
+
+          def filter_by_topic_if_specified
+            return unless options[:topic]
+
+            @repositories = @repositories.select do |repo|
+              repo.topics.include?(options[:topic])
+            end
+          end
+
+          def filter_by_visibility_if_specified
+            return unless options[:public]
+
+            @repositories = @repositories.reject(&:private?)
           end
 
           def run_audit
