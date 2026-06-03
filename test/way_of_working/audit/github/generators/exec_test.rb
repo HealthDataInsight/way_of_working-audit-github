@@ -18,8 +18,8 @@ module WayOfWorking
             # Mock Git operations
             mock_git = mock
             mock_git.stubs(:remotes).returns([
-              stub(url: 'https://github.com/test_org/test_repo.git')
-            ])
+                                               stub(url: 'https://github.com/test_org/test_repo.git')
+                                             ])
             Git.stubs(:open).returns(mock_git)
           end
 
@@ -136,7 +136,7 @@ module WayOfWorking
 
           test 'filter_by_topic_if_specified filters repositories by topic when topic is specified' do
             # Mock the auditor
-            mock_repo1 = stub(name: 'test_repo', archived?: false, topics: ['way-of-working', 'ruby'])
+            mock_repo1 = stub(name: 'test_repo', archived?: false, topics: %w[way-of-working ruby])
             mock_repo2 = stub(name: 'other_repo', archived?: false, topics: ['python'])
             mock_repo3 = stub(name: 'third_repo', archived?: false, topics: ['way-of-working'])
             mock_auditor = mock
@@ -240,7 +240,7 @@ module WayOfWorking
             Auditor.stubs(:new).returns(mock_auditor)
 
             # Run generator with multiple name filters
-            generator = generator_class.new([], { all: true, name: ['structured_store', 'another_repo'] }, {})
+            generator = generator_class.new([], { all: true, name: %w[structured_store another_repo] }, {})
             generator.instance_variable_set(:@github_token, 'test_token')
             generator.instance_variable_set(:@github_organisation, 'test_org')
             generator.prep_audit
@@ -281,11 +281,11 @@ module WayOfWorking
           test 'combines name, topic and public filters when all are specified' do
             # Mock the auditor
             mock_repo1 = stub(name: 'structured_store', archived?: false, private?: false,
-                                   topics: ['way-of-working'])
+                              topics: ['way-of-working'])
             mock_repo2 = stub(name: 'other_store', archived?: false, private?: true, topics: ['way-of-working'])
             mock_repo3 = stub(name: 'structured_store', archived?: false, private?: false, topics: ['other'])
             mock_repo4 = stub(name: 'public_with_topic', archived?: false, private?: false,
-                                   topics: ['way-of-working'])
+                              topics: ['way-of-working'])
             mock_auditor = mock
             mock_auditor.stubs(:repositories).returns([mock_repo1, mock_repo2, mock_repo3, mock_repo4])
 
