@@ -38,20 +38,37 @@ Then to run the GitHub audit for your project, use:
 way_of_working exec audit_github
 ```
 
-By default, the audit runs only against repositories that are configured as git remotes in your current project. To audit all repositories in your organisation, use the `--all-repos` flag:
+By default, the audit runs only against repositories that are configured as git remotes in your current project. To audit all repositories in your organisation, use the `--all` flag:
 
 ```bash
-way_of_working exec audit_github --all-repos
+way_of_working exec audit_github --all
 ```
 
 You can filter repositories by topic using the `--topic` flag. This accepts a single topic and will only audit repositories that have that topic:
 
 ```bash
 # Audit all repos with the 'way-of-working' topic
-way_of_working exec audit_github --all-repos --topic way-of-working
+way_of_working exec audit_github --all --topic way-of-working
 
 # Audit all repos with the 'indoor-mapping' topic
-way_of_working exec audit_github --all-repos --topic indoor-mapping
+way_of_working exec audit_github --all --topic indoor-mapping
+```
+
+You can filter repositories by name using the `--name` flag. This accepts one or more repository names and automatically audits all repositories in the organisation (you don't need to specify `--all`):
+
+```bash
+# Audit a single repository by name
+way_of_working exec audit_github --name structured_store
+
+# Audit multiple repositories by name
+way_of_working exec audit_github --name structured_store other_repo
+```
+
+You can filter to only public repositories using the `--public` flag:
+
+```bash
+# Audit all public repos
+way_of_working exec audit_github --all --public
 ```
 
 To automatically fix issues where possible, use the `--fix` flag:
@@ -61,7 +78,7 @@ To automatically fix issues where possible, use the `--fix` flag:
 way_of_working exec audit_github --fix
 
 # Audit and fix issues in all repos with a specific topic
-way_of_working exec audit_github --all-repos --topic way-of-working --fix
+way_of_working exec audit_github --all --topic way-of-working --fix
 ```
 
 Note: The `--fix` flag is passed to individual rules, which may implement automatic fixes for their specific checks. Not all rules support automatic fixing.
